@@ -1,0 +1,8 @@
+# System
+.vscode
+__pycache__
+
+# Folders
+venv
+data/excel/*
+data/images/*
