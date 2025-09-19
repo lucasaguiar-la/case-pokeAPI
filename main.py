@@ -4,6 +4,7 @@ from datetime import datetime
 from utils.logger import logger
 from services.api import get_pokemon
 from services.image_getter import get_images
+from services.image_saver import save_images
 
 DEBUG=False
 
@@ -36,7 +37,9 @@ if __name__ == "__main__":
                     f"\nVelocidade: {data['speed']}\n"
                 )
 
-            images = get_images(data["name"])
+            image_links = get_images(data["name"])
+            files = save_images(image_links, data["name"])
+            data["images"] = ", ".join(files) if files else None
             poke_data.append(data)
         
         if poke_data:

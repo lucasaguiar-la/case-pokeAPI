@@ -8,7 +8,7 @@ def get_images(pokemon_name):
     url = f"{IMAGE_URL}?q={pokemon_name}+pokemon&tbm=isch"
     headers = {"User-Agent": "Mozilla/5.0"}
 
-    logger.info(f"Buscando imagens do Pokemon {pokemon_name.upper()}")
+    logger.info(f"Buscando imagens do {pokemon_name.upper()}")
 
     try:
         response = requests.get(url, headers=headers, timeout=10)
