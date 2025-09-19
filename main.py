@@ -2,6 +2,7 @@ import os
 import random
 from datetime import datetime
 from utils.logger import logger
+from config import QUANTITY_IDS
 from services.api import get_pokemon
 from services.image_getter import get_images
 from services.image_saver import save_images
@@ -14,7 +15,7 @@ if __name__ == "__main__":
     os.makedirs("/data/excel", exist_ok=True)
     os.makedirs("/data/images", exist_ok=True)
 
-    ids = random.sample(range(1, 800), 3)
+    ids = random.sample(range(1, 800), QUANTITY_IDS)
     logger.info(f"IDs sorteados: {ids}")
 
     poke_data = []

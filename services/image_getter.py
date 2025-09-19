@@ -1,7 +1,7 @@
 import requests
 from config import IMAGE_URL
 from bs4 import BeautifulSoup
-from config import QTY_IMAGES
+from config import QUANTITY_IMAGES
 from utils.logger import logger
 
 def get_images(pokemon_name):
@@ -16,9 +16,9 @@ def get_images(pokemon_name):
         images = [
             img["src"]
             for img in soup.find_all("img")
-            if "src" in img.attrs
+            if "src" in img.attrs and not img["src"].endswith(".gif")
         ]
-        return images[:QTY_IMAGES]
+        return images[:QUANTITY_IMAGES]
 
     except Exception as error:
         logger.error(f"Erro ao buscar imagens do Pokemon {pokemon_name.upper()}: {error}")

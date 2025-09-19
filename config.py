@@ -8,4 +8,5 @@ LOG_FILE = os.path.join(LOG_DIR, f"log_{datetime.now().strftime('%Y%m%d')}.log")
 API_URL = "https://pokeapi.co/api/v2/pokemon/"
 IMAGE_URL = "https://www.google.com/search"
 
-QTY_IMAGES = 3
+QUANTITY_IDS = 3
+QUANTITY_IMAGES = 3
