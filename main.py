@@ -1,13 +1,16 @@
 import os
 import random
+from datetime import datetime
 from utils.logger import logger
 from services.api import get_pokemon
 
+DEBUG=False
+
 if __name__ == "__main__":
+    logger.info(f"Programa inciado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
     os.makedirs("/data/excel", exist_ok=True)
     os.makedirs("/data/images", exist_ok=True)
-
-    logger.info("Programa inciado")
 
     ids = random.sample(range(1, 800), 3)
     logger.info(f"IDs sorteados: {ids}")
@@ -17,4 +20,25 @@ if __name__ == "__main__":
         data = get_pokemon(id)
 
         if data:
-            logger.info(f"{data['name'].upper()} EU ESCOLHO VOCÊÊ!!!")
+            if DEBUG:
+                logger.info(
+                    f"\nID: {data['run_id']}"
+                    f"\n{data['name'].upper()} EU ESCOLHO VOCÊÊ!!!"
+                    f"\nHP: {data['hp']}"
+                    f"\nTipo: {data['types']}"
+                    f"\nAltura: {data['height']}"
+                    f"\nPeso: {data['weight']}"
+                    f"\nAtaque: {data['attack']}"
+                    f"\nDefesa: {data['defense']}"
+                    f"\nAtaque especial: {data['sp_atk']}"
+                    f"\nDefesa especial: {data['sp_def']}"
+                    f"\nVelocidade: {data['speed']}\n"
+                )
+
+            poke_data.append(data)
+        
+        if poke_data:
+            ...
+
+    logger.info(f"Programa finalizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+
