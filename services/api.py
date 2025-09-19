@@ -9,16 +9,18 @@ def get_pokemon(pokemon_id):
     INDEX = datetime.now().strftime("%Y%m%d%H%M%S")
     url = f"{API_URL}{pokemon_id}"
 
-    logger.info(f"Quem é esse Pokemon? ID: {pokemon_id}")
+    logger.info(f"Buscando Pokemon ID: {pokemon_id}")
 
     try:
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
+        logger.info(f"Pokemon encontrado: {data["name"].upper()}")
+
         return {
             "run_id": INDEX,
             "pokemon_id": data["id"],
-            "name": data["name"],
+            "name": data["name"].upper(),
             "types": data["types"][0]["type"]["name"],
             "height": data["height"],
             "weight": data["weight"],
