@@ -2,16 +2,20 @@ import requests
 import os
 from utils.logger import logger
 from config import IMAGES_DIR
+from time import sleep
+from datetime import datetime
 
 def save_images(image_links, run_id, pokemon_id, pokemon_name):
     image_details  = []
+    sleep(0.5)
+    INDEX = datetime.now().strftime("%Y%m%d%H%M%S")
 
     logger.info(f"Salvando imagens do {pokemon_name.upper()}")
 
     for index, link in enumerate(image_links):
         file_path = os.path.join(IMAGES_DIR, f"{pokemon_name}_{index + 1}.jpg")
         details = {
-            "run_id": run_id,
+            "run_id": INDEX,
             "pokemon_id": pokemon_id,
             "image_index": index + 1,
             "image_url": link,

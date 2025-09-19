@@ -40,7 +40,7 @@ if __name__ == "__main__":
             images_data.extend(saved_images_details)
 
     if poke_data and images_data:
-        excel_file = save_excel(poke_data, images_data)
+        save_excel(poke_data, images_data)
 
     logger.info(f"Programa finalizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
