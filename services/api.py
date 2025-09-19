@@ -18,7 +18,7 @@ def get_pokemon(pokemon_id):
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         data = response.json()
-        logger.info(f"Pokemon encontrado: {data["name"].upper()}")
+        logger.info(f"Pokemon encontrado: {data['name'].upper()}")
 
         return {
             "run_id": INDEX,
