@@ -10,8 +10,6 @@ def save_excel(poke_data, images_data):
         df_pokemons = pd.DataFrame(poke_data)
         df_images = pd.DataFrame(images_data)
 
-        logger.info(f"Salvando dados em planilha: {EXCEL_FILE}")
-
         with pd.ExcelWriter(EXCEL_FILE, engine="openpyxl") as writer:
             df_pokemons.to_excel(writer, sheet_name="Pokemons", index=False)
             df_images.to_excel(writer, sheet_name="Imagens", index=False)

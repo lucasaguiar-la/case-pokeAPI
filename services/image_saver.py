@@ -15,9 +15,9 @@ def save_images(image_links, run_id, pokemon_id, pokemon_name):
     for index, link in enumerate(image_links):
         file_path = os.path.join(IMAGES_DIR, f"{pokemon_name}_{index + 1}.jpg")
         details = {
-            "run_id": INDEX,
+            "run_id": run_id,
             "pokemon_id": pokemon_id,
-            "image_index": index + 1,
+            "image_index": INDEX,
             "image_url": link,
             "local_path": None,
             "download_status": "Failed"
