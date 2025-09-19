@@ -1,6 +1,9 @@
 import requests
 from utils.logger import logger
-from config import API_URL
+from config import (
+    API_URL,
+    IMAGES_DIR
+)
 from datetime import datetime
 from time import sleep
 
@@ -30,9 +33,9 @@ def get_pokemon(pokemon_id):
             "sp_atk": data["stats"][3]["base_stat"],
             "sp_def": data["stats"][4]["base_stat"],
             "speed": data["stats"][5]["base_stat"],
-            "api_source": url,
+            "api_source": API_URL,
             "processed_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "images_folder": f"./data/images/"
+            "images_folder": IMAGES_DIR
         }
 
     except Exception as error:

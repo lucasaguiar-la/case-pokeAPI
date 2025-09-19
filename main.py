@@ -2,49 +2,45 @@ import os
 import random
 from datetime import datetime
 from utils.logger import logger
-from config import QUANTITY_IDS
+from config import (
+    QUANTITY_IDS,
+    IMAGES_DIR,
+    EXCEL_DIR
+)
 from services.api import get_pokemon
 from services.image_getter import get_images
 from services.image_saver import save_images
-
-DEBUG=False
+from services.spreadsheet_saver import save_excel
 
 if __name__ == "__main__":
     logger.info(f"Programa inciado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    os.makedirs("/data/excel", exist_ok=True)
-    os.makedirs("/data/images", exist_ok=True)
+    os.makedirs(EXCEL_DIR, exist_ok=True)
+    os.makedirs(IMAGES_DIR , exist_ok=True)
 
     ids = random.sample(range(1, 800), QUANTITY_IDS)
     logger.info(f"IDs sorteados: {ids}")
 
     poke_data = []
-    for id in ids:
-        data = get_pokemon(id)
+    images_data = []
 
-        if data:
-            if DEBUG:
-                logger.info(
-                    f"\nID: {data['run_id']}"
-                    f"\n{data['name'].upper()} EU ESCOLHO VOCÊÊ!!!"
-                    f"\nHP: {data['hp']}"
-                    f"\nTipo: {data['types']}"
-                    f"\nAltura: {data['height']}"
-                    f"\nPeso: {data['weight']}"
-                    f"\nAtaque: {data['attack']}"
-                    f"\nDefesa: {data['defense']}"
-                    f"\nAtaque especial: {data['sp_atk']}"
-                    f"\nDefesa especial: {data['sp_def']}"
-                    f"\nVelocidade: {data['speed']}\n"
-                )
+    for pokemon_id in ids:
+        poke_info = get_pokemon(pokemon_id)
 
-            image_links = get_images(data["name"])
-            files = save_images(image_links, data["name"])
-            data["images"] = ", ".join(files) if files else None
-            poke_data.append(data)
-        
-        if poke_data:
-            ...
+        if poke_info:
+            image_links = get_images(poke_info["name"])
+            saved_images_details = save_images(
+                image_links,
+                poke_info["run_id"],
+                poke_info["pokemon_id"],
+                poke_info["name"]
+            )
+
+            poke_data.append(poke_info)
+            images_data.extend(saved_images_details)
+
+    if poke_data and images_data:
+        excel_file = save_excel(poke_data, images_data)
 
     logger.info(f"Programa finalizado: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
